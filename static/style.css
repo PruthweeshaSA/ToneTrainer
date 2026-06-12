@@ -10,6 +10,10 @@
     --key-hover: #4a4a5c;
     --key-text: #aaa;
     --btn-text: #1e1e24;
+
+    --key-bg-dim: #32323f;
+    --key-border-dim: #404052;
+    --key-text-dim: #777;
 }
 
 body.light-mode {
@@ -23,6 +27,10 @@ body.light-mode {
     --key-hover: #d1d1d1;
     --key-text: #555555;
     --btn-text: #ffffff;
+
+    --key-bg-dim: #f2f2f2;
+    --key-border-dim: #e6e6e6;
+    --key-text-dim: #999999;
 }
 
 body {
@@ -113,10 +121,23 @@ button:active {
     color: #f44336;
 }
 
-.keyboard {
+.keyboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.keyboard-row {
     display: flex;
     justify-content: center;
     gap: 40px;
+}
+
+.keyboard-row.middle-row {
+    margin-left: 20px;
+}
+.keyboard-row.bottom-row {
+    margin-left: 40px;
 }
 
 .key-group {
@@ -163,6 +184,19 @@ button:active {
 
 .key.active span {
     color: var(--btn-text);
+}
+
+.top-row .key, .bottom-row .key {
+    background-color: var(--key-bg-dim);
+    border-color: var(--key-border-dim);
+    color: var(--key-text-dim);
+}
+.top-row .key span, .bottom-row .key span {
+    color: var(--key-text-dim);
+}
+
+.top-row .key:hover, .bottom-row .key:hover {
+    background-color: var(--key-hover);
 }
 
 /* Theme Toggle */

@@ -55,16 +55,27 @@ function updateNotation() {
     const system = document.getElementById('notation-select').value;
     const names = notationSystems[system];
     
-    noteKeys.forEach((key, index) => {
-        const keyElement = document.querySelector(`.key[data-key="${key}"]`);
-        if (keyElement) {
-            const label = names[index];
-            const baseOctave = parseInt(octaves[index], 10);
-            const currentOctave = baseOctave + octaveShift;
-            keyElement.querySelector('span').innerHTML = `${label}<sup>${currentOctave}</sup>`;
-            keyElement.setAttribute('data-note', `${label}${currentOctave}`);
-            notes[key].name = `${label}${currentOctave}`;
-        }
+    const rows = [
+        { keys: ['q', 'w', 'e', 'r', 'u', 'i', 'o', 'p'], offset: 1 },
+        { keys: ['a', 's', 'd', 'f', 'j', 'k', 'l', ';'], offset: 0 },
+        { keys: ['z', 'x', 'c', 'v', 'n', 'm', ',', '.'], offset: -1 }
+    ];
+
+    rows.forEach(row => {
+        row.keys.forEach((key, index) => {
+            const keyElement = document.querySelector(`.key[data-key="${key}"]`);
+            if (keyElement) {
+                const label = names[index];
+                const baseOctave = parseInt(octaves[index], 10);
+                const currentOctave = baseOctave + octaveShift + row.offset;
+                keyElement.querySelector('span').innerHTML = `${label}<sup>${currentOctave}</sup>`;
+                keyElement.setAttribute('data-note', `${label}${currentOctave}`);
+                
+                if (row.offset === 0) {
+                    notes[key].name = `${label}${currentOctave}`;
+                }
+            }
+        });
     });
 }
 
@@ -163,7 +174,7 @@ function handleKeyDownAction(inputKey) {
     startTone(inputKey, notes[baseKey].freq * shiftMultiplier);
     
     // Visual feedback
-    const keyElement = document.querySelector(`.key[data-key="${baseKey}"]`);
+    const keyElement = document.querySelector(`.key[data-key="${inputKey}"]`);
     if (keyElement) {
         keyElement.classList.add('active');
         const count = parseInt(keyElement.dataset.activeCount || '0') + 1;
@@ -202,7 +213,7 @@ function handleKeyUpAction(inputKey) {
     stopTone(inputKey);
     
     const baseKey = keyInfo.base;
-    const keyElement = document.querySelector(`.key[data-key="${baseKey}"]`);
+    const keyElement = document.querySelector(`.key[data-key="${inputKey}"]`);
     if (keyElement) {
         const count = Math.max(0, parseInt(keyElement.dataset.activeCount || '0') - 1);
         keyElement.dataset.activeCount = count;
@@ -253,18 +264,18 @@ document.addEventListener('keyup', (e) => {
 });
 
 document.querySelectorAll('.key').forEach(keyElement => {
-    const baseKey = keyElement.dataset.key;
+    const inputKey = keyElement.dataset.key;
     
     keyElement.addEventListener('mousedown', () => {
-        handleKeyDownAction(baseKey);
+        handleKeyDownAction(inputKey);
     });
     
     keyElement.addEventListener('mouseup', () => {
-        handleKeyUpAction(baseKey);
+        handleKeyUpAction(inputKey);
     });
     
     keyElement.addEventListener('mouseleave', () => {
-        handleKeyUpAction(baseKey);
+        handleKeyUpAction(inputKey);
     });
 });
 
