@@ -95,6 +95,16 @@ button:active {
     transform: scale(0.95);
 }
 
+.danger-btn {
+    background-color: #af3830;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.danger-btn:hover {
+    background-color: #d32f2f;
+}
+
 .score-display {
     margin-top: 15px;
     font-size: 1.4rem;
@@ -119,6 +129,42 @@ button:active {
 
 .message.incorrect {
     color: #f44336;
+}
+
+.settings-panel {
+    margin-bottom: 2.5rem;
+    background-color: var(--key-bg-dim);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--key-border-dim);
+    display: flex;
+    justify-content: center;
+}
+
+.sliders-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+}
+
+.slider-group label {
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.slider-group input[type=range] {
+    width: 100%;
+    cursor: pointer;
 }
 
 .keyboard-container {
@@ -174,18 +220,6 @@ button:active {
     background-color: var(--key-hover);
 }
 
-.key.active {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: var(--btn-text);
-    transform: translateY(4px);
-    box-shadow: 0 0px 2px rgba(0,0,0,0.2);
-}
-
-.key.active span {
-    color: var(--btn-text);
-}
-
 .top-row .key, .bottom-row .key {
     background-color: var(--key-bg-dim);
     border-color: var(--key-border-dim);
@@ -197,6 +231,27 @@ button:active {
 
 .top-row .key:hover, .bottom-row .key:hover {
     background-color: var(--key-hover);
+}
+
+.key.active,
+.top-row .key.active,
+.bottom-row .key.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--btn-text);
+    transform: translateY(4px);
+    box-shadow: 0 0px 2px rgba(0,0,0,0.2);
+}
+
+.key.active span,
+.top-row .key.active span,
+.bottom-row .key.active span {
+    color: var(--btn-text);
+}
+
+.key.training-glow {
+    box-shadow: 0 0 20px var(--primary-color), inset 0 0 10px rgba(77, 168, 218, 0.5);
+    border-color: var(--primary-color);
 }
 
 /* Theme Toggle */

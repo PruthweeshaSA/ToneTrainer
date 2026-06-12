@@ -23,8 +23,18 @@
         
         <div class="controls">
             <button id="start-btn">Start Training</button>
+            <button id="exit-btn" class="danger-btn" style="display: none;">Exit Training</button>
             <div class="score-display">Score: <span id="score">0</span></div>
             <div id="message" class="message">Press 'Start Training' to begin</div>
+        </div>
+
+        <div class="settings-panel" id="training-settings" style="display: none;">
+            <div class="sliders-grid">
+                <div class="slider-group">
+                    <label for="current-round-slider"><span id="current-round-label">2 Options</span>: <span id="current-round-val">10</span></label>
+                    <input type="range" id="current-round-slider" min="1" max="20" value="10">
+                </div>
+            </div>
         </div>
 
         <div class="keyboard-container">

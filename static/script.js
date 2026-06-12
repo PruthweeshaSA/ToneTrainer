@@ -96,8 +96,62 @@ let trainingMode = false;
 let currentTargetNote = null;
 let currentTargetShift = 0;
 let score = 0;
+let currentN = 2;
+let roundCount = 0;
+let trainingPool = [];
+
+const configN = { 2: 10, 3: 10, 4: 10, 5: 10, 6: 10, 7: 10, 8: 10 };
+
+const currentRoundSlider = document.getElementById('current-round-slider');
+const currentRoundLabel = document.getElementById('current-round-label');
+const currentRoundVal = document.getElementById('current-round-val');
+const trainingSettings = document.getElementById('training-settings');
+
+if (currentRoundSlider) {
+    currentRoundSlider.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        configN[currentN] = val;
+        currentRoundVal.textContent = val;
+    });
+}
+
+function updateSliderUI() {
+    if (!trainingMode) {
+        trainingSettings.style.display = 'none';
+        return;
+    }
+    trainingSettings.style.display = 'flex';
+    currentRoundLabel.textContent = `${currentN} Options`;
+    currentRoundSlider.value = configN[currentN];
+    currentRoundVal.textContent = configN[currentN];
+}
+
+function getNextN(startN) {
+    if (startN <= 8) return startN;
+    return null;
+}
+
+function generateTrainingPool(n) {
+    const shuffled = [...noteKeys].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, n);
+}
+
+function clearGlows() {
+    document.querySelectorAll('.key.training-glow').forEach(el => el.classList.remove('training-glow'));
+}
+
+function updateGlows(pool) {
+    clearGlows();
+    pool.forEach(key => {
+        const keyElement = document.querySelector(`.middle-row .key[data-key="${key}"]`);
+        if (keyElement) {
+            keyElement.classList.add('training-glow');
+        }
+    });
+}
 
 const startBtn = document.getElementById('start-btn');
+const exitBtn = document.getElementById('exit-btn');
 const scoreDisplay = document.getElementById('score');
 const messageDisplay = document.getElementById('message');
 
@@ -108,19 +162,23 @@ function playTone(frequency) {
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
     
-    oscillator.type = 'sine'; // A smooth tone
+    oscillator.type = 'triangle'; // Richer, more electric-piano-like timbre
     oscillator.frequency.value = frequency;
     
     oscillator.connect(gainNode);
     gainNode.connect(audioCtx.destination);
     
-    // Envelope to avoid clicks
+    // Simulate a sustained key press for 0.6 seconds, then a quick release
     gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
     gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.05);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.0);
+    
+    // Sustain
+    gainNode.gain.setValueAtTime(1, audioCtx.currentTime + 0.6);
+    // Quick release
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.7);
     
     oscillator.start(audioCtx.currentTime);
-    oscillator.stop(audioCtx.currentTime + 1.0);
+    oscillator.stop(audioCtx.currentTime + 0.7);
 }
 
 const activeTones = {};
@@ -134,7 +192,7 @@ function startTone(id, frequency) {
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
     
-    oscillator.type = 'sine';
+    oscillator.type = 'triangle'; // Match the richer timbre
     oscillator.frequency.value = frequency;
     
     oscillator.connect(gainNode);
@@ -186,9 +244,28 @@ function handleKeyDownAction(inputKey) {
         if (baseKey === currentTargetNote && totalShift === currentTargetShift) {
             score++;
             scoreDisplay.textContent = score;
-            messageDisplay.textContent = "Correct! Listen to the next note.";
+            messageDisplay.textContent = "Correct!";
             messageDisplay.className = "message correct";
             currentTargetNote = null;
+            roundCount++;
+            
+            if (roundCount >= configN[currentN]) {
+                currentN = getNextN(currentN + 1);
+                roundCount = 0;
+                
+                if (currentN === null) {
+                    trainingMode = false;
+                    clearGlows();
+                    updateSliderUI();
+                    messageDisplay.textContent = "Training Complete! Great job!";
+                    messageDisplay.className = "message correct";
+                    startBtn.textContent = "Start Training";
+                    exitBtn.style.display = 'none';
+                    return;
+                } else {
+                    updateSliderUI();
+                }
+            }
             setTimeout(playRandomNote, 1000);
         } else {
             score = 0;
@@ -280,27 +357,49 @@ document.querySelectorAll('.key').forEach(keyElement => {
 });
 
 function playRandomNote() {
-    const randomKey = noteKeys[Math.floor(Math.random() * noteKeys.length)];
+    if (!trainingMode) return;
+    
+    trainingPool = generateTrainingPool(currentN);
+    updateGlows(trainingPool);
+    
+    const randomKey = trainingPool[Math.floor(Math.random() * trainingPool.length)];
     currentTargetNote = randomKey;
-    currentTargetShift = octaveShift;
-    const shiftMultiplier = Math.pow(2, octaveShift);
+    currentTargetShift = 0; // Forced to middle octave
+    const shiftMultiplier = 1;
     playTone(notes[randomKey].freq * shiftMultiplier);
-    messageDisplay.textContent = "What note is this?";
+    messageDisplay.textContent = `Level ${currentN} Options (Round ${roundCount + 1}/${configN[currentN]}) - What note is this?`;
     messageDisplay.className = "message";
 }
 
 startBtn.addEventListener('click', () => {
+    currentN = 2; // Always start at 2 since min is 1
+    
     trainingMode = true;
     score = 0;
+    roundCount = 0;
     scoreDisplay.textContent = score;
     startBtn.textContent = "Restart Training";
+    exitBtn.style.display = 'inline-block';
+    
+    updateSliderUI();
     
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
     
-    // Small delay before starting
     setTimeout(playRandomNote, 500);
+});
+
+exitBtn.addEventListener('click', () => {
+    trainingMode = false;
+    clearGlows();
+    updateSliderUI();
+    messageDisplay.textContent = "Training Exited.";
+    messageDisplay.className = "message";
+    startBtn.textContent = "Start Training";
+    exitBtn.style.display = 'none';
+    score = 0;
+    scoreDisplay.textContent = score;
 });
 
 // Initialize notation on load
