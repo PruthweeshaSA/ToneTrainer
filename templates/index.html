@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="notation-selector-container">
-        <select id="notation-select" class="styled-select">
-            <option value="cdef">C D E F G A B C</option>
-            <option value="doremi">Do Re Mi Fa So La Ti Do</option>
-            <option value="sarega" selected>Sa Re Ga Ma Pa Dha Ni Sa</option>
-        </select>
+    <button id="view-toggle" class="view-toggle-btn" aria-label="Toggle Desktop/Mobile View">🖥️</button>
+    <div class="top-controls-container">
+        <div class="notation-selector-container">
+            <select id="notation-select" class="styled-select">
+                <option value="cdef">C D E F G A B C</option>
+                <option value="doremi">Do Re Mi Fa So La Ti Do</option>
+                <option value="sarega" selected>Sa Re Ga Ma Pa Dha Ni Sa</option>
+            </select>
+        </div>
     </div>
 
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Mode">☀️</button>
@@ -40,46 +43,46 @@
         <div class="keyboard-container">
             <div class="keyboard-row top-row">
                 <div class="key-group">
-                    <div class="key" data-key="q">Q<br><span></span></div>
-                    <div class="key" data-key="w">W<br><span></span></div>
-                    <div class="key" data-key="e">E<br><span></span></div>
-                    <div class="key" data-key="r">R<br><span></span></div>
+                    <div class="key" data-key="q"><span class="keyboard-char">Q</span><span class="notation"></span></div>
+                    <div class="key" data-key="w"><span class="keyboard-char">W</span><span class="notation"></span></div>
+                    <div class="key" data-key="e"><span class="keyboard-char">E</span><span class="notation"></span></div>
+                    <div class="key" data-key="r"><span class="keyboard-char">R</span><span class="notation"></span></div>
                 </div>
                 <div class="key-group">
-                    <div class="key" data-key="u">U<br><span></span></div>
-                    <div class="key" data-key="i">I<br><span></span></div>
-                    <div class="key" data-key="o">O<br><span></span></div>
-                    <div class="key" data-key="p">P<br><span></span></div>
+                    <div class="key" data-key="u"><span class="keyboard-char">U</span><span class="notation"></span></div>
+                    <div class="key" data-key="i"><span class="keyboard-char">I</span><span class="notation"></span></div>
+                    <div class="key" data-key="o"><span class="keyboard-char">O</span><span class="notation"></span></div>
+                    <div class="key" data-key="p"><span class="keyboard-char">P</span><span class="notation"></span></div>
                 </div>
             </div>
 
             <div class="keyboard-row middle-row">
                 <div class="key-group">
-                    <div class="key" data-key="a">A<br><span></span></div>
-                    <div class="key" data-key="s">S<br><span></span></div>
-                    <div class="key" data-key="d">D<br><span></span></div>
-                    <div class="key" data-key="f">F<br><span></span></div>
+                    <div class="key" data-key="a"><span class="keyboard-char">A</span><span class="notation"></span></div>
+                    <div class="key" data-key="s"><span class="keyboard-char">S</span><span class="notation"></span></div>
+                    <div class="key" data-key="d"><span class="keyboard-char">D</span><span class="notation"></span></div>
+                    <div class="key" data-key="f"><span class="keyboard-char">F</span><span class="notation"></span></div>
                 </div>
                 <div class="key-group">
-                    <div class="key" data-key="j">J<br><span></span></div>
-                    <div class="key" data-key="k">K<br><span></span></div>
-                    <div class="key" data-key="l">L<br><span></span></div>
-                    <div class="key" data-key=";">;<br><span></span></div>
+                    <div class="key" data-key="j"><span class="keyboard-char">J</span><span class="notation"></span></div>
+                    <div class="key" data-key="k"><span class="keyboard-char">K</span><span class="notation"></span></div>
+                    <div class="key" data-key="l"><span class="keyboard-char">L</span><span class="notation"></span></div>
+                    <div class="key" data-key=";"><span class="keyboard-char">;</span><span class="notation"></span></div>
                 </div>
             </div>
 
             <div class="keyboard-row bottom-row">
                 <div class="key-group">
-                    <div class="key" data-key="z">Z<br><span></span></div>
-                    <div class="key" data-key="x">X<br><span></span></div>
-                    <div class="key" data-key="c">C<br><span></span></div>
-                    <div class="key" data-key="v">V<br><span></span></div>
+                    <div class="key" data-key="z"><span class="keyboard-char">Z</span><span class="notation"></span></div>
+                    <div class="key" data-key="x"><span class="keyboard-char">X</span><span class="notation"></span></div>
+                    <div class="key" data-key="c"><span class="keyboard-char">C</span><span class="notation"></span></div>
+                    <div class="key" data-key="v"><span class="keyboard-char">V</span><span class="notation"></span></div>
                 </div>
                 <div class="key-group">
-                    <div class="key" data-key="n">N<br><span></span></div>
-                    <div class="key" data-key="m">M<br><span></span></div>
-                    <div class="key" data-key=",">,<br><span></span></div>
-                    <div class="key" data-key=".">.<br><span></span></div>
+                    <div class="key" data-key="n"><span class="keyboard-char">N</span><span class="notation"></span></div>
+                    <div class="key" data-key="m"><span class="keyboard-char">M</span><span class="notation"></span></div>
+                    <div class="key" data-key=","><span class="keyboard-char">,</span><span class="notation"></span></div>
+                    <div class="key" data-key="."><span class="keyboard-char">.</span><span class="notation"></span></div>
                 </div>
             </div>
         </div>

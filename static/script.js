@@ -68,7 +68,7 @@ function updateNotation() {
                 const label = names[index];
                 const baseOctave = parseInt(octaves[index], 10);
                 const currentOctave = baseOctave + octaveShift + row.offset;
-                keyElement.querySelector('span').innerHTML = `${label}<sup>${currentOctave}</sup>`;
+                keyElement.querySelector('.notation').innerHTML = `${label}<sup>${currentOctave}</sup>`;
                 keyElement.setAttribute('data-note', `${label}${currentOctave}`);
                 
                 if (row.offset === 0) {
@@ -79,17 +79,21 @@ function updateNotation() {
     });
 }
 
-document.getElementById('notation-select').addEventListener('change', updateNotation);
+document.getElementById('notation-select').addEventListener('change', function() {
+    updateNotation();
+    this.blur();
+});
 
 // Theme Toggle
 const themeToggleBtn = document.getElementById('theme-toggle');
-themeToggleBtn.addEventListener('click', () => {
+themeToggleBtn.addEventListener('click', function() {
     document.body.classList.toggle('light-mode');
     if (document.body.classList.contains('light-mode')) {
-        themeToggleBtn.textContent = '🌙';
+        this.textContent = '🌙';
     } else {
-        themeToggleBtn.textContent = '☀️';
+        this.textContent = '☀️';
     }
+    this.blur();
 });
 
 let trainingMode = false;
@@ -400,6 +404,18 @@ exitBtn.addEventListener('click', () => {
     exitBtn.style.display = 'none';
     score = 0;
     scoreDisplay.textContent = score;
+});
+
+// View Toggle
+const viewToggleBtn = document.getElementById('view-toggle');
+viewToggleBtn.addEventListener('click', function() {
+    document.body.classList.toggle('mobile-mode');
+    if (document.body.classList.contains('mobile-mode')) {
+        this.textContent = '📱';
+    } else {
+        this.textContent = '🖥️';
+    }
+    this.blur();
 });
 
 // Initialize notation on load
