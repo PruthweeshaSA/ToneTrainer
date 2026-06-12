@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tone Trainer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="notation-selector-container">
+        <select id="notation-select" class="styled-select">
+            <option value="cdef">C D E F G A B C</option>
+            <option value="doremi">Do Re Mi Fa So La Ti Do</option>
+            <option value="sarega" selected>Sa Re Ga Ma Pa Dha Ni Sa</option>
+        </select>
+    </div>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Mode">☀️</button>
+
+    <div class="main-wrapper">
+        <div class="container">
+        <h1>Tone Trainer</h1>
+        
+        <div class="controls">
+            <button id="start-btn">Start Training</button>
+            <div class="score-display">Score: <span id="score">0</span></div>
+            <div id="message" class="message">Press 'Start Training' to begin</div>
+        </div>
+
+        <div class="keyboard">
+            <div class="key-group">
+                <div class="key" data-key="a" data-note="Sa">A<br><span>Sa</span></div>
+                <div class="key" data-key="s" data-note="Re">S<br><span>Re</span></div>
+                <div class="key" data-key="d" data-note="Ga">D<br><span>Ga</span></div>
+                <div class="key" data-key="f" data-note="Ma">F<br><span>Ma</span></div>
+            </div>
+            <div class="key-group">
+                <div class="key" data-key="j" data-note="Pa">J<br><span>Pa</span></div>
+                <div class="key" data-key="k" data-note="Dha">K<br><span>Dha</span></div>
+                <div class="key" data-key="l" data-note="Ni">L<br><span>Ni</span></div>
+                <div class="key" data-key=";" data-note="Sa">;<br><span>Sa</span></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <script src="/static/script.js"></script>
+</body>
+</html>
