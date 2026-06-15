@@ -96,13 +96,13 @@ button:active {
 }
 
 .danger-btn {
-    background-color: #af3830;
+    background-color: #853731;
     color: #fff;
     margin-left: 10px;
 }
 
 .danger-btn:hover {
-    background-color: #d32f2f;
+    background-color: rgb(221, 41, 41);
 }
 
 .score-display {
@@ -197,11 +197,12 @@ body.mobile-mode .key br {
 }
 .keyboard-row.bottom-row {
     margin-left: 40px;
+    gap: 10px;
 }
 
 .key-group {
     display: flex;
-    gap: 15px;
+    gap: 5px;
 }
 
 .key {
@@ -434,7 +435,7 @@ body.light-mode .styled-select:hover, body.light-mode .styled-select:focus {
     }
 
     button {
-        padding: 10px 16px;
+        padding: 5px 16px;
         font-size: 1rem;
     }
 
@@ -448,10 +449,11 @@ body.light-mode .styled-select:hover, body.light-mode .styled-select:focus {
 
     .keyboard-row.bottom-row {
         margin-left: 30px;
+        gap: 2px;
     }
 
     .key-group {
-        gap: 4px;
+        gap: 2px;
     }
 
     .key {
@@ -513,13 +515,14 @@ body.light-mode .styled-select:hover, body.light-mode .styled-select:focus {
         gap: 6px;
     }
     .key-group {
-        gap: 3px;
+        gap: 1px;
     }
     .keyboard-row.middle-row {
         margin-left: 10px;
     }
     .keyboard-row.bottom-row {
         margin-left: 20px;
+        gap: 1px;
     }
     .key .notation {
         font-size: 0.65rem;
