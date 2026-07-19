@@ -1,6 +1,6 @@
 # Tone Trainer
 
-Tone Trainer is an interactive, web-based ear training application designed to help users recognize musical notes and improve their relative pitch. Built with FastAPI, it offers a responsive virtual keyboard interface that maps computer keys to different musical octaves.
+Tone Trainer is an interactive, web-based relative pitch training application designed to help users recognize musical notes and improve their relative pitch. Built with FastAPI, it offers a responsive virtual keyboard interface that maps computer keys to different musical octaves.
 
 ## Features
 
