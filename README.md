@@ -39,7 +39,7 @@ To run this application locally, you will need Python installed on your machine.
 
 ## Docker Containerization
 
-You can also run Tone Trainer using Docker. A `Dockerfile` is provided in the repository to easily build and containerize the application.
+You can also run Tone Trainer using Docker. A `Dockerfile` is provided in the repository to build and containerize the application.
 
 ### Prerequisites
 - Docker must be installed and running on your system.
