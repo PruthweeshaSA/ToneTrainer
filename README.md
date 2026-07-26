@@ -24,7 +24,7 @@ To run this application locally, you will need Python installed on your machine.
    ```
 
 2. **Install the required dependencies**:
-   It is recommended to use a virtual environment.
+   It is recommended to use a virtual environment to prevent inference with requirements of other scripts or projects.
    ```bash
    pip install -r requirements.txt
    ```
